@@ -1,5 +1,4 @@
-import './globals.css';
-
+import '@/app/globals.css';
 import { myUserDetailData } from '@/data-access/entities/user/MyUserDetailData';
 import { resetToken } from '@/server-actions/auth/resetToken';
 import type { Metadata } from 'next';
@@ -34,12 +33,15 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
       >
-        <div className='h-full flex flex-col'>
-          <div className='h-8 m-4 flex justify-between items-center'>
+        <div className='h-full'>
+          <div className='h-12 w-full px-6 bg-primary text-white flex justify-between items-center absolute'>
+            <div>
+              <h1>next-sample</h1>
+            </div>
             <div />
             {myUser && <div>{myUser.name}</div>}
           </div>
-          <div className='h-full'>{children}</div>
+          <div className='h-full pt-12'>{children}</div>
         </div>
       </body>
     </html>
