@@ -9,7 +9,7 @@ setup:
 	pnpm add -D prisma
 	# pnpm prisma init
 	pnpm add @prisma/client
-	pnpm add jose bcrypt flowbite-react parse-duration zod date-fns lodash p-queue uuid @paralleldrive/cuid2 typescript-eslint zod-form-data
+	pnpm add jose bcrypt flowbite-react parse-duration zod date-fns lodash p-queue uuid @paralleldrive/cuid2 typescript-eslint zod-form-data react-icons
 	pnpm add -D @dotenvx/dotenvx @trivago/prettier-plugin-sort-imports @types/bcrypt @types/lodash @types/uuid eslint eslint-config-prettier npm-run-all prettier tsx
 	
 	echo 'DB_USER="postgres"' > .env.example.dev

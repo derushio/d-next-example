@@ -14,7 +14,6 @@ export async function signin(
   formData: FormData,
 ): Promise<State> {
   try {
-    console.log(formData);
     const fdata = zfd
       .formData({
         email: zfd.text(),
