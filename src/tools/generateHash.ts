@@ -1,4 +1,4 @@
-import { upperzero } from '@/data-access/types/zod/utils';
+import { upperzero } from '@/data-accesses/types/zod/utils';
 import bcrypt from 'bcrypt';
 import { z } from 'zod';
 

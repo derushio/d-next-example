@@ -9,8 +9,5 @@
     "typescriptreact",
     "jsx",
     "tsx"
-  ],
-  "path-autocomplete.pathMappings": {
-    "@/": "${folder}/src/"
-  }
+  ]
 }

@@ -1,7 +1,7 @@
 import { lo } from '@/utils/lo';
 
-export function numly(numly?: string, def = 0) {
-  const numlyNumber = Number(numly ?? def);
+export function numly(numly?: string, def: number | null | undefined = 0) {
+  const numlyNumber = numly == null ? def : Number(numly);
   return Number.isNaN(numlyNumber) ? def : numlyNumber;
 }
 
