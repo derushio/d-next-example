@@ -9,6 +9,6 @@ pnpm db:push
 pnpm tsx ./src/tools/seedTestUser.ts
 pnpm dev
 
-# access: http://localhost:3000/signin
+# access: http://localhost:3000/api/auth/signin
 # signin: test@example.com / password
 ```
