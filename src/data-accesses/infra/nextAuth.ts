@@ -2,13 +2,18 @@ import 'server-only';
 
 import { prisma } from '@/data-accesses/infra/prisma';
 import { Env } from '@/data-accesses/queries/env/Env';
+import { uuidv4 } from '@/utils/uuidv4';
 import bcrypt from 'bcrypt';
 import {
   GetServerSidePropsContext,
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import { NextAuthOptions, getServerSession } from 'next-auth';
+import {
+  NextAuthOptions,
+  User as NextAuthUser,
+  getServerSession,
+} from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const authOptions = {
@@ -23,34 +28,35 @@ export const authOptions = {
      */
     async jwt({ token, user }) {
       if (user) {
-        token.sub = user.id;
+        token = {
+          ...token,
+          ...user,
+          sub: user.id,
+        };
       } else {
         const dbUser = await prisma.user.findUnique({
           where: { id: token.sub },
         });
-        token.sub = dbUser?.id;
+        if (!dbUser) {
+          throw new Error('dbUser is null');
+        }
+
+        const { passwordHash, ...safeDbUser } = dbUser;
+        passwordHash;
+        token = {
+          ...token,
+          ...safeDbUser,
+          sub: safeDbUser?.id,
+        };
       }
       return token;
     },
     /**
      * セッションの確認
-     * ユーザーが無くなっていた場合は即時セッションを無効化
      */
     async session({ session, token }) {
-      const user = token.sub
-        ? await prisma.user.findUnique({
-            where: {
-              id: token.sub,
-            },
-          })
-        : undefined;
-      if (!user) {
-        session.expires = new Date().toISOString();
-        session.user = undefined;
-      } else if (new Date(session.expires).getTime() < new Date().getTime()) {
-        session.user = undefined;
-      }
-
+      console.log(token);
+      // TODO: sessionの確認、resetToken
       return session;
     },
   },
@@ -60,7 +66,7 @@ export const authOptions = {
         email: { type: 'email' },
         password: { type: 'password' },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials, req): Promise<NextAuthUser | null> {
         req;
 
         const email = credentials?.email;
@@ -69,17 +75,36 @@ export const authOptions = {
           return null;
         }
 
-        const userSecret = await prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
           where: { email },
         });
-        if (userSecret == null) {
+        if (user == null) {
           return null;
         }
 
-        if (await bcrypt.compare(password, userSecret.passwordHash ?? '')) {
-          const { passwordHash, ...user } = userSecret;
+        if (await bcrypt.compare(password, user.passwordHash ?? '')) {
+          const { passwordHash, ...safeUser } = user;
           passwordHash;
-          return user;
+
+          const accessToken = uuidv4();
+          const resetToken = uuidv4();
+
+          // sessionを記録
+          await prisma.userSession.create({
+            data: {
+              userId: user.id,
+              accessTokenHash: await bcrypt.hash(
+                accessToken,
+                Env.TOKEN_SALT_ROUNDS,
+              ),
+              resetTokenHash: await bcrypt.hash(
+                resetToken,
+                Env.TOKEN_SALT_ROUNDS,
+              ),
+            },
+          });
+
+          return { ...safeUser, accessToken, resetToken };
         } else {
           return null;
         }

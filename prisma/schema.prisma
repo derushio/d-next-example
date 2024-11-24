@@ -32,7 +32,24 @@ model User {
   /// salt hash
   passwordHash String
 
-  Post Post[]
+  UserSession UserSession[]
+  Post        Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([updatedAt])
+}
+
+model UserSession {
+  id String @id @default(cuid())
+
+  User   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userId String
+
+  accessTokenHash String
+  resetTokenHash  String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -45,7 +62,7 @@ model User {
 model Post {
   id String @id @default(cuid())
 
-  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  User   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   userId String
 
   title String
