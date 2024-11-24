@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 export const Env = z
   .object({
-    TOKEN_SALT_ROUNDS: z.string(),
+    TOKEN_SALT_ROUNDS: z.number(),
     TOKEN_SECRET: z.string(),
     TOKEN_MAX_AGE_MINUTES: upperzero(z.number()),
     TOKEN_UPDATE_AGE_MINUTES: upperzero(z.number()),
