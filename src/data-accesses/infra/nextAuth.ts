@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { prisma } from '@/data-access/infra/prisma';
+import { prisma } from '@/data-accesses/infra/prisma';
 import { Env } from '@/data-accesses/queries/env/Env';
 import bcrypt from 'bcrypt';
 import {
