@@ -1,5 +1,5 @@
+import { Prisma, PrismaClient } from '@/data-accesses/prisma/generated';
 import { upperzero } from '@/data-accesses/types/zod/utils';
-import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { z } from 'zod';
 
@@ -18,12 +18,22 @@ async function main() {
     upperzero(z.number()).parse(Number(process.env.TOKEN_SALT_ROUNDS)),
   );
 
-  await prisma.user.create({
-    data: {
+  await prisma.$transaction(async (t) => {
+    const userData = {
       name: user.name,
       email: user.email,
       passwordHash: hash,
-    },
+    } satisfies Prisma.UserCreateInput;
+
+    await t.user.upsert({
+      where: {
+        email: userData.email,
+      },
+      create: userData,
+      update: userData,
+    });
+
+    const postsData = [] satisfies Prisma.PostCreateInput[];
   });
 }
 

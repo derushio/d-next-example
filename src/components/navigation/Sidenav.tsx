@@ -9,6 +9,7 @@ import {
 } from 'flowbite-react';
 import { useContext } from 'react';
 import { HiArrowSmLeft, HiArrowSmRight } from 'react-icons/hi';
+import { MdOutlineArticle } from 'react-icons/md';
 
 export function Sidenav() {
   const { isSidenavOpen } = useContext(BodyStateContext);
@@ -21,6 +22,12 @@ export function Sidenav() {
         <SidebarItemGroup>
           <SidebarItem href='/'>
             <h1>App</h1>
+          </SidebarItem>
+        </SidebarItemGroup>
+
+        <SidebarItemGroup>
+          <SidebarItem href='/posts' icon={MdOutlineArticle}>
+            Posts
           </SidebarItem>
         </SidebarItemGroup>
 
