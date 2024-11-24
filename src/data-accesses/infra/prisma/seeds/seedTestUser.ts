@@ -11,7 +11,7 @@ const user = {
   password: 'password',
 };
 
-async function main() {
+export async function seedTestUser() {
   console.log(user);
   const hash = await bcrypt.hash(
     user.password,
@@ -68,5 +68,3 @@ async function main() {
     }
   });
 }
-
-void main();
