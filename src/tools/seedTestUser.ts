@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from '@/data-accesses/prisma/generated';
+import { PrismaClient } from '@/data-accesses/infra/prisma/generated';
 import { upperzero } from '@/data-accesses/types/zod/utils';
 import bcrypt from 'bcrypt';
 import { z } from 'zod';

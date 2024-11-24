@@ -7,7 +7,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["typedSql"]
-  output          = "../src/data-accesses/prisma/generated"
+  output          = "../src/data-accesses/infra/prisma/generated"
 }
 
 datasource db {

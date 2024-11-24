@@ -39,4 +39,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-src/data-accesses/prisma/generated
+src/data-accesses/infra/prisma/generated
