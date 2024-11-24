@@ -10,6 +10,10 @@ generator client {
   output          = "../src/data-accesses/infra/prisma/generated"
 }
 
+generator comments {
+  provider = "prisma-db-comments-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -21,7 +25,7 @@ model User {
   name String
 
   email        String @unique
-  passwordHash String
+  passwordHash String /// salt hash
 
   Post Post[]
 

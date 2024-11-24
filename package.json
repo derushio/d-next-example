@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.24.2",
+    "@onozaty/prisma-db-comments-generator": "^1.0.2",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bcrypt": "^5.0.2",
     "@types/lodash": "^4.17.13",
