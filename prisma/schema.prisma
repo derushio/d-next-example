@@ -19,13 +19,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// ユーザーテーブル
 model User {
   id String @id @default(cuid())
 
   name String
 
   email        String @unique
-  passwordHash String /// salt hash
+  /// salt hash
+  passwordHash String
 
   Post Post[]
 
@@ -36,6 +38,7 @@ model User {
   @@index([updatedAt])
 }
 
+/// 投稿テーブル
 model Post {
   id String @id @default(cuid())
 
