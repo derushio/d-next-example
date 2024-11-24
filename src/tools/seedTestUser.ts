@@ -20,6 +20,7 @@ async function main() {
 
   await prisma.$transaction(async (t) => {
     const userData = {
+      id: 'm8kpy32b06shqbw7x5pgtaan',
       name: user.name,
       email: user.email,
       passwordHash: hash,
@@ -27,13 +28,44 @@ async function main() {
 
     await t.user.upsert({
       where: {
-        email: userData.email,
+        id: userData.id,
       },
       create: userData,
       update: userData,
     });
 
-    const postsData = [] satisfies Prisma.PostCreateInput[];
+    const postsData = [
+      {
+        id: 'v12ztbdv8uv54ejetpy48rdq',
+        title: 'ひとつめのきじ',
+        body: 'ないようがないようです。',
+        user: {
+          connect: {
+            id: userData.id,
+          },
+        },
+      },
+      {
+        id: 'gsp42mf5zv3n9ju0ondvs7k6',
+        title: 'ふたつめのきじ',
+        body: 'ないようがどうやらあるようです。',
+        user: {
+          connect: {
+            id: userData.id,
+          },
+        },
+      },
+    ] satisfies Prisma.PostCreateInput[];
+
+    for (const postData of postsData) {
+      await t.post.upsert({
+        where: {
+          id: postData.id,
+        },
+        create: postData,
+        update: postData,
+      });
+    }
   });
 }
 
