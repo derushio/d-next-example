@@ -15,7 +15,7 @@ async function main() {
   console.log(user);
   const hash = await bcrypt.hash(
     user.password,
-    upperzero(z.number()).parse(Number(process.env.SALT_ROUNDS)),
+    upperzero(z.number()).parse(Number(process.env.TOKEN_SALT_ROUNDS)),
   );
 
   await prisma.user.create({
