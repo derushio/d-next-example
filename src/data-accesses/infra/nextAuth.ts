@@ -57,6 +57,7 @@ export const authOptions = {
     async session({ session, token }) {
       console.log(token);
       // TODO: sessionの確認、resetToken
+      // TODO: ここでtokenを無効化する方法
       return session;
     },
   },
