@@ -6,7 +6,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 make setup
 make dev
 pnpm db:push
-pnpm tsx ./src/tools/seedTestUser.ts
+pnpm db:seed
 pnpm dev
 
 # access: http://localhost:3000/api/auth/signin
