@@ -18,6 +18,9 @@ export const authOptions = {
     updateAge: Env.TOKEN_UPDATE_AGE_MINUTES * 60,
   },
   callbacks: {
+    /**
+     * jwtの処理時にユーザを紐付ける
+     */
     async jwt({ token, user }) {
       if (user) {
         token.sub = user.id;
@@ -28,6 +31,27 @@ export const authOptions = {
         token.sub = dbUser?.id;
       }
       return token;
+    },
+    /**
+     * セッションの確認
+     * ユーザーが無くなっていた場合は即時セッションを無効化
+     */
+    async session({ session, token }) {
+      const user = token.sub
+        ? await prisma.user.findUnique({
+            where: {
+              id: token.sub,
+            },
+          })
+        : undefined;
+      if (!user) {
+        session.expires = new Date().toISOString();
+        session.user = undefined;
+      } else if (new Date(session.expires).getTime() < new Date().getTime()) {
+        session.user = undefined;
+      }
+
+      return session;
     },
   },
   providers: [
