@@ -60,7 +60,7 @@ export const authOptions = {
   },
   callbacks: {
     /**
-     * セッションの確認
+     * JWTの組み立て
      */
     async jwt({ token, user: _user }) {
       const user = lo.cloneDeep(_user ?? token);
@@ -73,6 +73,9 @@ export const authOptions = {
 
       return token;
     },
+    /**
+     * セッションの確認
+     */
     async session({ session, token, user: _user }) {
       const user = lo.cloneDeep(_user ?? token);
 
