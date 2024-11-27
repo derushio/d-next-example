@@ -204,7 +204,7 @@ export async function getAuth(
     | [NextApiRequest, NextApiResponse]
     | []
 ) {
-  return await getServerSession(...args, authOptions);
+  return (await getServerSession(...args, authOptions))?.user;
 }
 
 export async function guardAuth() {
