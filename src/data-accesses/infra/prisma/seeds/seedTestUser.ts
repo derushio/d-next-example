@@ -39,7 +39,7 @@ export async function seedTestUser() {
         id: 'v12ztbdv8uv54ejetpy48rdq',
         title: 'ひとつめのきじ',
         body: 'ないようがないようです。',
-        user: {
+        User: {
           connect: {
             id: userData.id,
           },
@@ -49,7 +49,7 @@ export async function seedTestUser() {
         id: 'gsp42mf5zv3n9ju0ondvs7k6',
         title: 'ふたつめのきじ',
         body: 'ないようがどうやらあるようです。',
-        user: {
+        User: {
           connect: {
             id: userData.id,
           },

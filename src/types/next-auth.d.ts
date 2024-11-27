@@ -1,23 +1,35 @@
 import { User as PrismaUser } from '@/data-accesses/infra/prisma/generated';
 import { DefaultSession } from 'next-auth';
 
-type NextAuthUser = Omit<PrismaUser, 'passwordHash'> & {
-  accessToken: string;
-  resetToken: string;
-};
-
 declare module 'next-auth' {
+  declare type NextAuthUser = Partial<
+    Omit<PrismaUser, 'id' | 'passwordHash'> & {
+      sub: string;
+      id: string;
+
+      sessionId?: string;
+      accessToken?: string;
+      accessTokenExpireAt?: Date;
+      resetToken?: string;
+      resetTokenExpireAt?: Date;
+    }
+  >;
+
   interface Session {
     user?: NextAuthUser & DefaultSession['user'];
   }
   interface User extends NextAuthUser {
-    id: string;
+    sub?: string;
   }
 }
 
 declare module 'next-auth/jwt' {
   // "jwt"コールバックのtokenパラメータに任意のプロパティを追加します。
-  interface JWT extends NextAuthUser {
-    id: string;
+  export interface JWT extends Record<string, unknown>, DefaultJWT {
+    sessionId?: string;
+    accessToken?: string;
+    accessTokenExpireAt?: Date;
+    resetToken?: string;
+    resetTokenExpireAt?: Date;
   }
 }

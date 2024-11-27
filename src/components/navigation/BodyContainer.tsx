@@ -113,7 +113,7 @@ export function BodyContainer({
           />
 
           {/* ページ本体 */}
-          <div className='h-full w-full overflow-x-hidden pt-14'>
+          <div className='relative z-0 h-full w-full overflow-x-hidden pt-14'>
             {children}
           </div>
         </div>
