@@ -2,6 +2,7 @@ import 'server-only';
 
 import { prisma } from '@/data-accesses/infra/prisma';
 import { Env } from '@/data-accesses/queries/env/Env';
+import { HEADER_PATH } from '@/middleware';
 import { lo } from '@/utils/lo';
 import { uuidv4 } from '@/utils/uuidv4';
 import bcrypt from 'bcrypt';
@@ -13,6 +14,8 @@ import {
 } from 'next';
 import { NextAuthOptions, getServerSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 /**
  * 新しいトークンとセッションを作成
@@ -204,13 +207,14 @@ export async function getAuth(
   return await getServerSession(...args, authOptions);
 }
 
-export const NotAuthError = 'NotAuthError';
-
 export async function guardAuth() {
   const auth = await getAuth();
 
   if (!auth) {
-    throw new Error(NotAuthError);
+    if (!auth) {
+      const path = (await headers()).get(HEADER_PATH);
+      redirect(`/api/auth/signin?callbackUrl=${path}`);
+    }
   }
 
   return auth;
