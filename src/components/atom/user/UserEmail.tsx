@@ -1,14 +1,9 @@
-'use client';
+'use server';
 
-import { BodyStateContext } from '@/components/navigation/BodyContainer';
-import { useContext } from 'react';
+import { getAuth } from '@/data-accesses/infra/nextAuth';
 
-export function UserEmail() {
-  const { auth } = useContext(BodyStateContext);
+export async function UserEmail() {
+  const auth = await getAuth();
 
-  return (
-    <span>
-      {auth && auth.user && auth.user.email && <div>{auth.user.email}</div>}
-    </span>
-  );
+  return <span>{auth?.email && <div>{auth.email}</div>}</span>;
 }

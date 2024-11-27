@@ -1,6 +1,7 @@
 import '@/app/globals.css';
-import { BodyContainer } from '@/components/navigation/BodyContainer';
-import { getAuth } from '@/data-accesses/infra/nextAuth';
+import { AppToast } from '@/components/atom/general/toast/AppToast';
+import { BodyClient } from '@/components/navigation/BodyClient';
+import { BodyServer } from '@/components/navigation/BodyServer';
 import { Flowbite, ThemeModeScript, ThemeProps } from 'flowbite-react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -48,18 +49,21 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const auth = await getAuth();
-
   return (
     <html lang='en' className='h-full'>
       <head>
         <ThemeModeScript />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
+        className={`${geistSans.className} ${geistMono.className} antialiased h-full`}
       >
         <Flowbite theme={theme}>
-          <BodyContainer auth={auth}>{children}</BodyContainer>
+          <BodyClient>
+            <BodyServer>
+              {children}
+              <AppToast />
+            </BodyServer>
+          </BodyClient>
         </Flowbite>
       </body>
     </html>

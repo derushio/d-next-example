@@ -1,10 +1,9 @@
 'use client';
 
-import { ToastStateContext } from '@/components/navigation/BodyContainer';
 import { useIsMountedCheck } from '@/hooks/useIsMountedCheck';
 import { useBreakpoint } from '@/hooks/useMediaQuery';
 import { Button, Toast } from 'flowbite-react';
-import { ReactNode, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useInterval } from 'usehooks-ts';
 
@@ -22,11 +21,32 @@ const animMaxCount = 6000 / frameper;
  */
 const animCount = 150 / frameper;
 
+export type ToastStateContextType = {
+  toasts: ReactNode[];
+  setToasts: (toasts: ReactNode[]) => void;
+  addToast: (toast: ReactNode) => void;
+};
+
+/**
+ * トーストのステートコンテキスト
+ */
+export const ToastStateContext = createContext<ToastStateContextType>({
+  toasts: [],
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setToasts(toasts: ReactNode[]) {
+    return;
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  addToast(toast: ReactNode) {
+    return;
+  },
+});
+
 /**
  * トーストコンポーネント
  */
 export function AppToast() {
-  const toastState = useContext(ToastStateContext);
+  const { toasts, setToasts } = useContext(ToastStateContext);
 
   const [isMounted] = useIsMountedCheck();
   const { isSm } = useBreakpoint('sm');
@@ -43,8 +63,8 @@ export function AppToast() {
     if (currentToast && animCounter < animMaxCount) {
       setAnimCounter(animCounter + 1);
     } else {
-      setCurrentToast(toastState.toasts[0]);
-      toastState.setToasts(toastState.toasts.filter((_, i) => 0 < i));
+      setCurrentToast(toasts[0]);
+      setToasts(toasts.filter((_, i) => 0 < i));
 
       setAnimCounter(0);
     }

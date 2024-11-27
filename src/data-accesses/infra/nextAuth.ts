@@ -61,7 +61,9 @@ export const authOptions = {
     /**
      * JWTの組み立て
      */
-    async jwt({ token, user }) {
+    async jwt({ token, user: _user }) {
+      const user = _user ?? token;
+
       token = {
         ...token,
         ...user,
