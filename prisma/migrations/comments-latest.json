@@ -37,6 +37,54 @@
       }
     ]
   },
+  "UserSession": {
+    "table": {
+      "tableName": "UserSession",
+      "comment": "ユーザーのログインセッション"
+    },
+    "columns": [
+      {
+        "tableName": "UserSession",
+        "columnName": "id",
+        "comment": ""
+      },
+      {
+        "tableName": "UserSession",
+        "columnName": "userId",
+        "comment": ""
+      },
+      {
+        "tableName": "UserSession",
+        "columnName": "accessTokenHash",
+        "comment": ""
+      },
+      {
+        "tableName": "UserSession",
+        "columnName": "accessTokenExpireAt",
+        "comment": ""
+      },
+      {
+        "tableName": "UserSession",
+        "columnName": "resetTokenHash",
+        "comment": ""
+      },
+      {
+        "tableName": "UserSession",
+        "columnName": "resetTokenExpireAt",
+        "comment": ""
+      },
+      {
+        "tableName": "UserSession",
+        "columnName": "createdAt",
+        "comment": ""
+      },
+      {
+        "tableName": "UserSession",
+        "columnName": "updatedAt",
+        "comment": ""
+      }
+    ]
+  },
   "Post": {
     "table": {
       "tableName": "Post",
