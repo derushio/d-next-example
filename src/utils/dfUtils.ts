@@ -25,6 +25,15 @@ export const japaneseDateLocaleFormats = [
 ] as const;
 
 /**
+ * date-fns format 日本向けショートフォーマット
+ * yyyy年M月d日
+ */
+export const japaneseDateTimeLocaleFormats = [
+  'yyyy年M月d日 HH:mm',
+  { locale: ja },
+] as const;
+
+/**
  * date-fns format DBなどdatetimeショートフォーマット
  * yyyy-MM-dd
  */
