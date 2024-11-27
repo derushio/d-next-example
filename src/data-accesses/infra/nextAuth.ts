@@ -62,8 +62,20 @@ export const authOptions = {
     async jwt({ token, user: _user }) {
       const user = lo.cloneDeep(_user ?? token);
 
+      token = {
+        ...token,
+        ...user,
+        sub: user.id,
+      };
+
+      return token;
+    },
+    async session({ session, token, user: _user }) {
+      const user = lo.cloneDeep(_user ?? token);
+
       if (!user.accessToken || !user.resetToken) {
-        throw new Error('token is null');
+        session.user = undefined;
+        return session;
       }
 
       let { accessToken, accessTokenExpireAt, resetToken, resetTokenExpireAt } =
@@ -82,7 +94,8 @@ export const authOptions = {
         },
       });
       if (!userSession) {
-        throw new Error('dbUser is null');
+        session.user = undefined;
+        return session;
       }
 
       // accessTokenの有効期限チェック
@@ -92,7 +105,8 @@ export const authOptions = {
           !(await bcrypt.compare(user.accessToken, userSession.accessTokenHash))
         ) {
           // accessToken NG
-          throw new Error('token invalid');
+          session.user = undefined;
+          return session;
         }
       } else {
         // accessToken 有効期限NG
@@ -113,14 +127,10 @@ export const authOptions = {
         }
       }
 
-      const { id, passwordHash, ...tokenUser } = userSession.User;
-      passwordHash;
+      session.user = {
+        ...session.user,
 
-      token = {
-        ...token,
-        ...tokenUser,
-
-        sub: id,
+        sub: user.id,
 
         sessionId: userSession.id,
         accessToken: accessToken,
@@ -129,9 +139,6 @@ export const authOptions = {
         resetTokenExpireAt: resetTokenExpireAt,
       };
 
-      return token;
-    },
-    async session({ session }) {
       return session;
     },
   },
