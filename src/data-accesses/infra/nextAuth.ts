@@ -3,7 +3,6 @@ import 'server-only';
 import { prisma } from '@/data-accesses/infra/prisma';
 import { Env } from '@/data-accesses/queries/env/Env';
 import { HEADER_PATH } from '@/middleware';
-import { lo } from '@/utils/lo';
 import { uuidv4 } from '@/utils/uuidv4';
 import bcrypt from 'bcrypt';
 import { addMinutes } from 'date-fns';
