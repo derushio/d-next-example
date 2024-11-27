@@ -62,9 +62,7 @@ export const authOptions = {
     /**
      * JWTの組み立て
      */
-    async jwt({ token, user: _user }) {
-      const user = lo.cloneDeep(_user ?? token);
-
+    async jwt({ token, user }) {
       token = {
         ...token,
         ...user,
@@ -77,7 +75,7 @@ export const authOptions = {
      * セッションの確認
      */
     async session({ session, token, user: _user }) {
-      const user = lo.cloneDeep(_user ?? token);
+      const user = _user ?? token;
 
       if (!user.accessToken || !user.resetToken) {
         session.user = undefined;
