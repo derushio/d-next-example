@@ -1,7 +1,7 @@
 import '@/app/globals.css';
 import { AppToast } from '@/components/atom/general/toast/AppToast';
-import { BodyClient } from '@/components/navigation/BodyClient';
-import { BodyServer } from '@/components/navigation/BodyServer';
+import { BodyClient } from '@/components/navigation/body/BodyClient';
+import { BodyServer } from '@/components/navigation/body/BodyServer';
 import { Flowbite, ThemeModeScript, ThemeProps } from 'flowbite-react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';

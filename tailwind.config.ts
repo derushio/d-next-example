@@ -22,6 +22,7 @@ export default {
       },
       transitionProperty: {
         width: 'width',
+        margin: 'margin',
       },
       width: {
         '128': '32rem',

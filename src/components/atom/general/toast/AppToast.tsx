@@ -23,14 +23,17 @@ const animCount = 150 / frameper;
 
 export type ToastStateContextType = {
   toasts: ReactNode[];
-  setToasts: (toasts: ReactNode[]) => void;
-  addToast: (toast: ReactNode) => void;
 };
 
 /**
  * トーストのステートコンテキスト
  */
-export const ToastStateContext = createContext<ToastStateContextType>({
+export const ToastStateContext = createContext<
+  ToastStateContextType & {
+    setToasts: (toasts: ReactNode[]) => void;
+    addToast: (toast: ReactNode) => void;
+  }
+>({
   toasts: [],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setToasts(toasts: ReactNode[]) {
@@ -48,7 +51,7 @@ export const ToastStateContext = createContext<ToastStateContextType>({
 export function AppToast() {
   const { toasts, setToasts } = useContext(ToastStateContext);
 
-  const [isMounted] = useIsMountedCheck();
+  const { isMounted } = useIsMountedCheck();
   const { isSm } = useBreakpoint('sm');
 
   const [animCounter, setAnimCounter] = useState(0);

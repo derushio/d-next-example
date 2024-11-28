@@ -1,8 +1,8 @@
 'use server';
 
 import { UserEmail } from '@/components/atom/user/UserEmail';
-import { SidenavContainer } from '@/components/navigation/SidenavContainer';
 import { Header } from '@/components/navigation/header/Header';
+import { SidenavServer } from '@/components/navigation/sidenav/SidenavServer';
 import { Spinner } from 'flowbite-react';
 import { ReactNode, Suspense } from 'react';
 
@@ -12,11 +12,13 @@ import { ReactNode, Suspense } from 'react';
 export async function BodyServer({ children }: { children: ReactNode }) {
   return (
     <>
-      <div className='absolute z-50'>
-        <SidenavContainer />
+      <div className='z-50'>
+        <Suspense>
+          <SidenavServer />
+        </Suspense>
       </div>
 
-      <div className='relative h-full ml-0 sm:ml-72 z-0'>
+      <div className='relative h-full z-0'>
         <Header
           UserEmail={
             <Suspense fallback={<Spinner />}>
