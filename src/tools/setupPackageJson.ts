@@ -19,9 +19,14 @@ async function main() {
   packageJson.scripts['db:push'] = 'pnpm prisma db push';
   packageJson.scripts['db:migrate:dev'] = 'pnpm prisma migrate dev';
   packageJson.scripts['db:migrate:deploy'] = 'pnpm prisma migrate deploy';
+  packageJson.scripts['db:seed'] = 'pnpm prisma db seed';
   packageJson.scripts['db:studio'] = 'pnpm prisma studio';
   packageJson.scripts['hash:generate'] =
     'pnpm dotenvx run -- pnpm tsx ./src/tools/generateHash.ts';
+
+  packageJson.prisma = {
+    seed: 'pnpm tsx ./src/data-accesses/infra/prisma/seeds/index.ts',
+  };
 
   await fs.promises.writeFile(
     './package.json',
