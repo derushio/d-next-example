@@ -28,3 +28,4 @@ setup:
 	cp .env.example.dev .env
 
 	pnpm dotenvx run -- pnpm tsx ./src/tools/setupPackageJson.ts
+	pnpm dotenvx run -- pnpm tsx ./src/tools/setupDockerCompose.ts
