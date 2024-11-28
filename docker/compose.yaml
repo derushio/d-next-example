@@ -12,4 +12,4 @@ services:
       - d-next-example-volume:/var/lib/postgresql/data
 
 volumes:
-  d-next-resources-volume: {}
+  d-next-example-volume: {}
