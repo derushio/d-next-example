@@ -11,9 +11,9 @@ async function main() {
   packageJson.scripts['build:win'] =
     'pnpm electron-builder --win --universal --dir';
   packageJson.scripts['package:linux'] =
-    'pnpm run-s db:migrate:dev db:seed build build:linux';
+    'pnpm run-s db:migrate:dev db:seed db:generate build build:linux';
   packageJson.scripts['package:win'] =
-    'pnpm run-s db:migrate:dev db:seed build build:win';
+    'pnpm run-s db:migrate:dev db:seed db:generate build build:win';
 
   packageJson.build = {};
   packageJson.build['asar'] = false;
