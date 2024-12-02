@@ -29,3 +29,24 @@ setup:
 
 	pnpm dotenvx run -- pnpm tsx ./src/tools/setupPackageJson.ts
 	pnpm dotenvx run -- pnpm tsx ./src/tools/setupDockerCompose.ts
+
+setup-electron: setup
+	pnpm add fs-extra @prisma/migrate
+	pnpm add -D electron electron-builder
+
+	echo 'node-linker=hoisted' > .npmrc
+	echo 'symlink=false' >> .npmrc
+
+	echo 'DATABASE_URL="file:../db/db.db"' > .env.example.dev
+	echo '' >> .env.example.dev
+	echo 'TOKEN_SALT_ROUNDS="10"' >> .env.example.dev
+	echo "TOKEN_SECRET=\"`openssl rand -base64 32`\"" >> .env.example.dev
+	echo 'TOKEN_MAX_AGE_MINUTES="60"' >> .env.example.dev
+	echo 'TOKEN_UPDATE_AGE_MINUTES="2.5"' >> .env.example.dev
+
+	cp .env.example.dev .env
+
+	cp ./prisma/schema.electron.prisma ./prisma/schema.prisma
+	rm -rf ./prisma/migrations
+
+	pnpm dotenvx run -- pnpm tsx ./src/tools/setupPackageJsonElectron.ts
