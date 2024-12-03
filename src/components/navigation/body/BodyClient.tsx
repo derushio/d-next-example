@@ -89,7 +89,9 @@ export function BodyClient({ children }: { children: ReactNode }) {
   useEffect(() => {
     setBodyState({
       ...bodyState,
-      sidenavMargin: bodyState.isSidenavHide ? 'sm:ml-0' : 'sm:ml-72',
+      sidenavMargin: bodyState.isSidenavHide
+        ? 'sm:ml-0'
+        : bodyState.sidenavMargin,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bodyState.isSidenavHide]);
