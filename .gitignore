@@ -42,3 +42,5 @@ next-env.d.ts
 src/data-accesses/infra/prisma/generated
 
 /dist
+
+/db

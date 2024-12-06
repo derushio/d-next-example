@@ -3,19 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --background: #e8eaf6;
+  --background: #EDE7F6;
   --foreground: #171717;
-  --primary: #1e88e5;
-  --primary2: #1976d2;
-  --error: #f44336;
-  --error2: #e53935;
-  --warn: #ffeb3b;
-  --warn2: #fdd835;
+  --primary: #9575CD;
+  --primary2: #7E57C2;
+  --error: #F06292;
+  --error2: #EC407A;
+  --warn: #FFB74D;
+  --warn2: #FFA726;
+  --paper: rgb(248 250 252 / var(--tw-bg-opacity, 1));
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #e8eaf6;
+    --background: #EDE7F6;
     --foreground: #171717;
   }
 }
@@ -24,4 +25,15 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .hidden-scrollbar {
+    -ms-overflow-style: none; /* IE, Edge 対応 */
+    scrollbar-width: none; /* Firefox 対応 */
+  }
+  .hidden-scrollbar::-webkit-scrollbar {
+    /* Chrome, Safari 対応 */
+    display: none;
+  }
 }

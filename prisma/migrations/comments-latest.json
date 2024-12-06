@@ -84,43 +84,5 @@
         "comment": ""
       }
     ]
-  },
-  "Post": {
-    "table": {
-      "tableName": "Post",
-      "comment": "投稿テーブル"
-    },
-    "columns": [
-      {
-        "tableName": "Post",
-        "columnName": "id",
-        "comment": ""
-      },
-      {
-        "tableName": "Post",
-        "columnName": "userId",
-        "comment": ""
-      },
-      {
-        "tableName": "Post",
-        "columnName": "title",
-        "comment": ""
-      },
-      {
-        "tableName": "Post",
-        "columnName": "body",
-        "comment": ""
-      },
-      {
-        "tableName": "Post",
-        "columnName": "createdAt",
-        "comment": ""
-      },
-      {
-        "tableName": "Post",
-        "columnName": "updatedAt",
-        "comment": ""
-      }
-    ]
   }
 }
