@@ -1,21 +1,10 @@
+import { geistMonoFont, geistSansFont } from '@/app/fonts';
 import '@/app/globals.css';
 import { AppToast } from '@/components/atom/general/toast/AppToast';
 import { BodyClient } from '@/components/navigation/body/BodyClient';
 import { BodyServer } from '@/components/navigation/body/BodyServer';
 import { Flowbite, ThemeModeScript, ThemeProps } from 'flowbite-react';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
 
 /**
  * flowbiteのtheme設定
@@ -55,7 +44,7 @@ export default async function RootLayout({
         <ThemeModeScript />
       </head>
       <body
-        className={`${geistSans.className} ${geistMono.className} antialiased h-full`}
+        className={`${geistSansFont.className} ${geistMonoFont.className} antialiased h-full`}
       >
         <Flowbite theme={theme}>
           <BodyClient>
