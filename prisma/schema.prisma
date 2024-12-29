@@ -36,7 +36,7 @@ model User {
   Post        Post[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([createdAt])
   @@index([updatedAt])
@@ -56,7 +56,7 @@ model UserSession {
   resetTokenExpireAt DateTime
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([createdAt])
   @@index([updatedAt])
@@ -73,7 +73,7 @@ model Post {
   body  String
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([createdAt])
   @@index([updatedAt])
