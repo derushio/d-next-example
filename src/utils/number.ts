@@ -85,7 +85,6 @@ export function randomNormal(
   }
 
   let value: number;
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     value = calcNormal();
     if (start <= value && value < end) {
