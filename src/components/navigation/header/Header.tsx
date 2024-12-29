@@ -30,7 +30,7 @@ export function Header({ UserEmail }: { UserEmail: ReactNode }) {
           )}
         </div>
 
-        <div className='flex-1' />
+        <div className='grow' />
 
         <div className='flex-none'>{UserEmail}</div>
       </div>

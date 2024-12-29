@@ -7,6 +7,7 @@ async function main() {
 
   packageJson.main = './main.js';
 
+  packageJson.scripts['build'] = 'pnpm run-p db:migrate:dev next:build';
   packageJson.scripts['build:linux'] = 'pnpm electron-builder --linux --dir';
   packageJson.scripts['build:win'] =
     'pnpm electron-builder --win --universal --dir';
