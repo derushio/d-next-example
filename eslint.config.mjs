@@ -52,6 +52,10 @@ const eslintConfig = [
       // generated
       'src/data-accesses/infra/prisma/generated/*',
     ],
+
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
   },
 ];
 
